@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- 1. 브라우저 탭 제목 수정 가능 -->
+    <title>우리의 아지트 - 기념일 카운트다운</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&amp;family=Rubik:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#bdc8d1",
+                        "on-secondary-container": "#417000",
+                        "on-primary-container": "#003e58",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary-fixed": "#c6e7ff",
+                        "surface-bright": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#3d6a00",
+                        "on-secondary-fixed": "#0f2000",
+                        "primary": "#00658d",
+                        "on-secondary-fixed-variant": "#2d5000",
+                        "tertiary-container": "#bda200",
+                        "surface-dim": "#dadada",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed-variant": "#004c6b",
+                        "primary-container": "#00aeef",
+                        "inverse-primary": "#82cfff",
+                        "secondary-fixed-dim": "#95d948",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-variant": "#3e4850",
+                        "surface": "#f9f9f9",
+                        "secondary-container": "#aff761",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e2",
+                        "background": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed-dim": "#82cfff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffe25a",
+                        "tertiary-fixed-dim": "#e5c500",
+                        "surface-container-low": "#f3f3f3",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#001e2d",
+                        "outline": "#6e7881",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#aff761",
+                        "on-tertiary-fixed": "#211b00",
+                        "tertiary": "#6e5e00",
+                        "surface-tint": "#00658d",
+                        "on-surface": "#1a1c1c",
+                        "on-tertiary-container": "#443900",
+                        "on-tertiary-fixed-variant": "#534600",
+                        "inverse-surface": "#2f3131",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "lg": "48px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Bricolage Grotesque", "Noto Sans KR"],
+                        "headline-lg-mobile": ["Bricolage Grotesque", "Noto Sans KR"],
+                        "body-lg": ["Rubik", "Noto Sans KR"],
+                        "headline-lg": ["Bricolage Grotesque", "Noto Sans KR"],
+                        "display": ["Bricolage Grotesque", "Noto Sans KR"],
+                        "body-md": ["Rubik", "Noto Sans KR"],
+                        "label-lg": ["Rubik", "Noto Sans KR"],
+                        "label-sm": ["Rubik", "Noto Sans KR"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .toy-box-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0, 101, 141, 0.3);
+        }
+        html.dark .toy-box-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        .plastic-gradient {
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%);
+        }
+
+        .bevel-border {
+            border-top: 2px solid rgba(255, 255, 255, 0.6);
+            border-left: 2px solid rgba(255, 255, 255, 0.6);
+            border-right: 2px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        html.dark .bevel-border {
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            border-right: 2px solid rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+        }
+
+        .cloud-pattern {
+            background-color: #00aeef;
+            background-image: radial-gradient(#ffffff 20%, transparent 20%), radial-gradient(#ffffff 20%, transparent 20%);
+            background-position: 0 0, 50px 50px;
+            background-size: 100px 100px;
+            animation: cloud-float 60s linear infinite;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes cloud-float {
+            from { background-position: 0 0, 50px 50px; }
+            to { background-position: 500px 0, 550px 50px; }
+        }
+
+        html.dark .cloud-pattern {
+            background-color: #0c1220;
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 50px 10px, #ffe25a, rgba(0,0,0,0)),
+                radial-gradient(2.5px 2.5px at 80px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 90px, #fff, rgba(0,0,0,0));
+            background-size: 120px 120px;
+            animation: star-float 90s linear infinite;
+        }
+
+        @keyframes star-float {
+            from { background-position: 0 0; }
+            to { background-position: 120px 240px; }
+        }
+
+        .wooden-block {
+            background: #d97706;
+            box-shadow: inset -4px -4px 0px rgba(0,0,0,0.2), inset 4px 4px 0px rgba(255,255,255,0.2);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html.dark .wooden-block {
+            background: #3e1b02;
+            border-color: #1a0b01;
+            box-shadow: inset -4px -4px 0px rgba(0,0,0,0.4), inset 4px 4px 0px rgba(255,255,255,0.05);
+        }
+
+        .pushed-in:active {
+            transform: translateY(2px);
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Fix for Korean word breaks */
+        .keep-all {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        /* Polaroid Swing Animation */
+        .toy-polaroid {
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, background-color 0.5s ease;
+            transform-origin: top center;
+        }
+        .toy-polaroid:hover {
+            transform: rotate(2deg) scale(1.02);
+            box-shadow: 12px 12px 0px 0px rgba(0, 101, 141, 0.4);
+        }
+        html.dark .toy-polaroid:hover {
+            box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Star Badge Bobbing Animation */
+        @keyframes star-bob {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-4px) scale(1.05); }
+        }
+        .star-pin {
+            animation: star-bob 3s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<body class="bg-background dark:bg-[#121416] text-on-background dark:text-[#e2e2e2] font-body-md min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500">
+<!-- Canvas Overlay for Floating Hearts -->
+<canvas id="heart-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-[100]"></canvas>
+
+<!-- Top Navigation Shell -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-[#1a1c1e] border-b-4 border-primary-container dark:border-primary shadow-[4px_4px_0px_0px_rgba(0,101,141,0.4)] flex items-center justify-between px-margin-mobile md:px-margin-desktop py-base transition-colors duration-500">
+    <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-primary dark:text-primary-fixed text-headline-md" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+        <!-- 2. 상단 헤더 이름 수정 가능 -->
+        <h1 class="font-display text-display text-primary dark:text-primary-fixed tracking-tight text-[22px] md:text-[32px] font-black">해삐 웨딩</h1>
+    </div>
+    <div class="flex items-center gap-base">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-[#282a2d] transition-colors duration-200 flex items-center justify-center text-primary dark:text-primary-fixed" aria-label="다크 모드 토글">
+            <span class="material-symbols-outlined font-black" id="theme-toggle-icon">dark_mode</span>
+        </button>
+    </div>
+</header>
+
+<!-- Main Content Canvas -->
+<main class="flex-grow cloud-pattern relative py-md flex flex-col items-center">
+    <!-- Hero: The Picture Frame -->
+    <section class="w-full max-w-4xl px-margin-mobile md:px-margin-desktop mb-md">
+        <div class="bg-white dark:bg-[#1e2022] p-base md:p-md rounded-lg shadow-xl transform -rotate-1 relative toy-box-shadow toy-polaroid transition-colors duration-500">
+            <!-- Frame Decoration (우디의 골드 보안관 별 배지 핀) -->
+            <div class="absolute -top-4 -left-4 w-12 h-12 bg-amber-500 dark:bg-amber-600 rounded-full flex items-center justify-center border-4 border-white dark:border-[#1e2022] shadow-md z-10 star-pin">
+                <span class="material-symbols-outlined text-white text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            </div>
+            <div class="relative overflow-hidden rounded border-4 border-outline-variant dark:border-outline aspect-[16/10]">
+                <!-- 3. 메인 이미지 (로컬 파일 main.gif 또는 이미지 주소 직접 기입 가능) -->
+                <img id="main-hero-img" alt="우리의 소중한 모습" class="w-full h-full object-cover" src="main.gif">
+                <!-- Glass Glint Effect -->
+                <div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20 plastic-gradient"></div>
+            </div>
+            <div class="mt-md mb-sm text-center">
+                <!-- 4. 이미지 아래에 들어갈 문구 수정 가능 -->
+                <p class="font-display text-headline-md text-primary-fixed-dim bg-primary dark:bg-primary-fixed dark:text-on-primary-fixed px-md py-xs rounded-full inline-block shadow-md">
+                    우리의 모험은 계속됩니다
+                </p>
+            </div>
+            <!-- 발바닥 ANDY 스타일 손글씨 낙서 이스터에그 (N이 뒤집힌 И 모양) -->
+            <div class="absolute bottom-1 right-3 transform rotate-[-3deg] text-[#1d4ed8] dark:text-[#60a5fa] font-black text-[15px] md:text-[18px] select-none tracking-widest font-display opacity-85" style="font-family: 'Bricolage Grotesque', sans-serif;">
+                HEESU ♡ HYEONWOO
+            </div>
+        </div>
+    </section>
+
+    <!-- The Countdown Block Grid -->
+    <section class="w-full max-w-5xl px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter mb-md">
+        <!-- Giant D-Day Block with Timer -->
+        <div class="md:col-span-12 flex justify-center mb-md">
+            <div class="relative group cursor-default">
+                <div class="absolute -inset-2 bg-tertiary-fixed rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <div class="relative wooden-block p-md md:p-xl rounded-xl flex flex-col items-center border-4 border-[#b45309] transform hover:scale-[1.02] transition-all min-w-[320px]">
+                    <!-- 메인 D-Day 문구 (자바스크립트에서 WEDDING_DATE 기준으로 자동 계산) -->
+                    <span id="main-dday" class="text-white font-display text-[64px] md:text-[96px] tracking-widest drop-shadow-[4px_4px_0px_rgba(0,0,0,0.5)]">D-Day</span>
+                    <div class="h-1 w-full bg-white/30 rounded-full my-sm"></div>
+                    <div class="flex flex-col items-center gap-xs">
+                        <span id="main-target-date" class="text-tertiary-fixed dark:text-[#ffeb84] font-headline-md text-sm md:text-md uppercase tracking-tight opacity-90">2027.06.12 까지</span>
+                        <div class="bg-black/20 px-md py-sm rounded-lg border-2 border-white/20 mt-sm" id="live-countdown">
+                            <p class="text-white font-display text-[16px] md:text-[22px] tracking-normal text-center whitespace-nowrap">
+                                <span class="text-[13px] md:text-[15px] mr-1 text-white/80 font-body-md align-middle">남은 시간:</span>
+                                <span id="hours" class="">0000</span>시간 <span id="minutes" class="">00</span>분 <span id="seconds" class="">00</span>초
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 토이스토리 명대사 인용 슬로건 -->
+        <div class="md:col-span-12 text-center -mt-sm mb-sm">
+            <p class="text-[#b45309] dark:text-[#ffeb84] font-display text-[14px] md:text-[16px] tracking-widest font-black uppercase drop-shadow-sm">
+                "우리의 사랑은 무한한 공간, 저 너머로! 🚀"
+            </p>
+        </div>
+
+        <!-- Bento Stats (마일스톤 일정) -->
+        <!-- 아래 카드들의 D-Day는 data-milestone-date 값을 기준으로 자동 계산됩니다. -->
+        <!-- 일정을 추가/삭제하려면 div 블록 단위로 복사하거나 지우시면 됩니다. -->
+        <div id="milestones-container" class="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            
+            <!-- 마일스톤 카드 1 -->
+            <div class="bg-secondary-container dark:bg-[#1a3300] p-sm rounded-xl bevel-border toy-box-shadow flex items-center gap-sm group hover:-translate-y-1 transition-transform duration-200 cursor-pointer text-on-secondary-container dark:text-secondary-fixed">
+                <div class="w-12 h-12 bg-white dark:bg-[#282a2d] rounded-full flex-shrink-0 flex items-center justify-center shadow-inner">
+                    <span class="material-symbols-outlined text-secondary dark:text-secondary-fixed text-[24px]" style="font-variation-settings: 'FILL' 1;">camera_alt</span>
+                </div>
+                <div class="flex flex-col text-left">
+                    <div class="flex items-baseline gap-xs">
+                        <!-- data-milestone-date="YYYY-MM-DD" 부분을 수정하면 D-Day가 자동 계산됩니다. -->
+                        <h3 class="font-display text-headline-md text-on-secondary-container dark:text-[#c5f583] text-[18px]" data-milestone-date="2026-12-22">D-Day</h3>
+                        <p class="text-[12px] font-label-sm text-on-secondary-container/60 dark:text-secondary-fixed/50">2026.12.22</p>
+                    </div>
+                    <p class="font-label-lg text-on-secondary-container/80 dark:text-secondary-fixed/80 keep-all leading-tight text-[14px] md:text-[16px]">웨딩사진 촬영</p>
+                </div>
+            </div>
+
+            <!-- 마일스톤 카드 2 -->
+            <div class="bg-secondary-container dark:bg-[#1a3300] p-sm rounded-xl bevel-border toy-box-shadow flex items-center gap-sm group hover:-translate-y-1 transition-transform duration-200 cursor-pointer text-on-secondary-container dark:text-secondary-fixed">
+                <div class="w-12 h-12 bg-white dark:bg-[#282a2d] rounded-full flex-shrink-0 flex items-center justify-center shadow-inner">
+                    <span class="material-symbols-outlined text-secondary dark:text-secondary-fixed text-[24px]" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+                </div>
+                <div class="flex flex-col text-left">
+                    <div class="flex items-baseline gap-xs">
+                        <!-- data-milestone-date="YYYY-MM-DD" 부분을 수정하면 D-Day가 자동 계산됩니다. -->
+                        <h3 class="font-display text-headline-md text-on-secondary-container dark:text-[#c5f583] text-[18px]" data-milestone-date="2026-12-22">D-Day</h3>
+                        <p class="text-[12px] font-label-sm text-on-secondary-container/60 dark:text-secondary-fixed/50">2026.12.22</p>
+                    </div>
+                    <p class="font-label-lg text-on-secondary-container/80 dark:text-secondary-fixed/80 keep-all leading-tight text-[14px] md:text-[16px]">다이어트</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Heartfelt Note Section (러브레터) -->
+    <section class="w-full max-w-3xl px-margin-mobile md:px-margin-desktop mb-md">
+        <div class="bg-[#fff9e6] dark:bg-[#252014] text-on-surface dark:text-[#ffea9f] p-lg rounded-xl shadow-lg border-l-8 border-tertiary relative transform rotate-1 hover:rotate-0 transition-all duration-300">
+            <!-- Push Pin -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-error rounded-full shadow-md">
+                <div class="absolute top-1 left-1 w-2 h-2 bg-white/50 rounded-full"></div>
+            </div>
+            <div class="flex justify-between items-center mb-md border-b-2 border-tertiary/20 dark:border-tertiary/40 pb-xs">
+                <!-- 받는 이 편지 헤더 -->
+                <h2 class="font-display text-headline-md text-tertiary dark:text-tertiary-fixed font-bold text-[22px] md:text-[26px]">사랑하는 당신에게,</h2>
+            </div>
+            <!-- 편지 본문 -->
+            <div class="space-y-md font-body-lg leading-relaxed keep-all text-[16px] md:text-[18px]">
+                <p>당신과 함께하는 매일은 마치 장난감 상자 속에서 가장 좋아하는 새 장난감을 발견하는 기분이에요. 앤디가 아끼는 장난감에 자신의 이름을 적어둔 것처럼, 당신은 내 마음속 깊은 곳에 당신의 이름을 영원히 새겨두었죠.</p>
+                <p>349일이라는 시간이 은하계를 가로지르는 긴 여정처럼 보일지 몰라도, 당신이 곁에 있기에 모든 순간이 영웅적인 모험이 됩니다. 우리의 2027년 그 소중한 순간이 너무나도 기다려져요!</p>
+            </div>
+            <!-- 보내는 이 편지 서명 -->
+            <p class="font-display text-right text-primary dark:text-tertiary-fixed mt-lg font-bold">영원히 당신의 사랑으로부터.</p>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute bottom-4 right-4 opacity-10 dark:opacity-5 text-on-surface dark:text-white">
+                <span class="material-symbols-outlined text-[80px]">draw</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- JavaScript Application Logic -->
+<script>
+    // ----------------------------------------------------
+    // 설정: 메인 결혼일 날짜 수정 가능 (YYYY-MM-DD 포맷)
+    // ----------------------------------------------------
+    const WEDDING_DATE = '2027-06-12';
+
+    // ----------------------------------------------------
+    // D-Day & Timer Engine
+    // ----------------------------------------------------
+    function getDdayString(targetDateStr) {
+        const targetDate = new Date(targetDateStr + 'T00:00:00');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        targetDate.setHours(0, 0, 0, 0);
+        
+        const diffTime = targetDate.getTime() - today.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 0) {
+            return 'D-Day';
+        } else if (diffDays > 0) {
+            return `D-${diffDays}`;
+        } else {
+            return `D+${Math.abs(diffDays)}`;
+        }
+    }
+
+    function updateCountdowns() {
+        // 1. 메인 결혼일 D-Day 계산 및 업데이트
+        const mainDdayEl = document.getElementById("main-dday");
+        const mainTargetDateEl = document.getElementById("main-target-date");
+        const liveCountdownEl = document.getElementById("live-countdown");
+
+        if (mainDdayEl) {
+            mainDdayEl.textContent = getDdayString(WEDDING_DATE);
+        }
+
+        if (mainTargetDateEl) {
+            const dateParts = WEDDING_DATE.split('-');
+            if (dateParts.length === 3) {
+                mainTargetDateEl.textContent = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]} 까지`;
+            }
+        }
+
+        // 2. 실시간 남은 총 시간(일자 포함) 및 분:초 타이머 계산 및 업데이트
+        const targetTime = new Date(WEDDING_DATE + 'T00:00:00').getTime();
+        const now = new Date().getTime();
+        const distance = targetTime - now;
+
+        if (distance < 0) {
+            if (liveCountdownEl) {
+                liveCountdownEl.innerHTML = `<p class="text-white font-display text-[18px] md:text-[22px] tracking-wider text-center py-xs font-bold">🎉 약속된 날이 왔습니다! 행복을 기원합니다! 🎉</p>`;
+            }
+        } else {
+            const hours = Math.floor(distance / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // 3. 마일스톤 카드들의 D-Day 자동 계산 (HTML 내 [data-milestone-date] 속성 스캔)
+        document.querySelectorAll('[data-milestone-date]').forEach(el => {
+            const dateStr = el.getAttribute('data-milestone-date');
+            el.textContent = getDdayString(dateStr);
+        });
+    }
+
+    // ----------------------------------------------------
+    // Theme (Dark Mode) Toggle Logic
+    // ----------------------------------------------------
+    function initTheme() {
+        const isDark = localStorage.getItem('wedding_dark_mode') === 'true';
+        setTheme(isDark);
+    }
+
+    function setTheme(isDark) {
+        const html = document.documentElement;
+        const icon = document.getElementById('theme-toggle-icon');
+        
+        if (isDark) {
+            html.classList.add('dark');
+            icon.textContent = 'light_mode';
+            localStorage.setItem('wedding_dark_mode', 'true');
+        } else {
+            html.classList.remove('dark');
+            icon.textContent = 'dark_mode';
+            localStorage.setItem('wedding_dark_mode', 'false');
+        }
+    }
+
+    function toggleDarkMode() {
+        const isDarkNow = document.documentElement.classList.contains('dark');
+        setTheme(!isDarkNow);
+    }
+
+    // ----------------------------------------------------
+    // Toy Story Particle Engine (Canvas Particles)
+    // ----------------------------------------------------
+    const canvas = document.getElementById('heart-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class ToyStoryParticle {
+        constructor(x, y) {
+            this.x = x || Math.random() * canvas.width;
+            this.y = y || canvas.height + 30;
+            this.size = Math.random() * 12 + 10; // 크기 10 ~ 22
+            this.speedY = Math.random() * 1.8 + 1.2;
+            this.speedX = (Math.random() - 0.5) * 0.8;
+            this.swaySpeed = Math.random() * 0.015 + 0.008;
+            this.swayOffset = Math.random() * Math.PI * 2;
+            this.opacity = 1;
+            this.fadeSpeed = Math.random() * 0.005 + 0.003;
+            this.angle = (Math.random() - 0.5) * 0.3;
+            this.angleSpeed = (Math.random() - 0.5) * 0.02;
+            
+            const rand = Math.random();
+            if (rand < 0.45) {
+                this.type = 'heart';
+                const colors = ['#ff4d6d', '#ff758f', '#ff85a1', '#ff2a51', '#ff3b30', '#ffccd5'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            } else if (rand < 0.70) {
+                this.type = 'star'; // 보안관 배지
+                const colors = ['#fbbf24', '#f59e0b', '#d97706', '#fef08a'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            } else if (rand < 0.90) {
+                this.type = 'planet'; // 피자 플래닛 / 버즈 테마
+                const colors = ['#a3e635', '#84cc16', '#c084fc', '#60a5fa', '#38bdf8'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            } else {
+                this.type = 'sparkle'; // 반짝임
+                this.color = '#ffffff';
+            }
+        }
+
+        update() {
+            this.y -= this.speedY;
+            this.x += this.speedX + Math.sin(this.y * this.swaySpeed + this.swayOffset) * 0.2;
+            this.opacity -= this.fadeSpeed;
+            this.angle += this.angleSpeed;
+            if (this.opacity < 0) this.opacity = 0;
+        }
+
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.angle);
+            ctx.globalAlpha = this.opacity;
+            ctx.fillStyle = this.color;
+            
+            if (this.type === 'heart') {
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size / 4);
+                ctx.bezierCurveTo(-this.size / 2, -this.size * 3/4, -this.size, -this.size / 3, 0, this.size);
+                ctx.bezierCurveTo(this.size, -this.size / 3, this.size / 2, -this.size * 3/4, 0, -this.size / 4);
+                ctx.closePath();
+                ctx.fill();
+            } else if (this.type === 'star') {
+                ctx.beginPath();
+                const spikes = 5;
+                const outerRadius = this.size * 0.7;
+                const innerRadius = this.size * 0.3;
+                let rot = Math.PI / 2 * 3;
+                let cx = 0, cy = 0;
+                let step = Math.PI / spikes;
+
+                ctx.moveTo(0, -outerRadius);
+                for (let i = 0; i < spikes; i++) {
+                    cx = Math.cos(rot) * outerRadius;
+                    cy = Math.sin(rot) * outerRadius;
+                    ctx.lineTo(cx, cy);
+                    rot += step;
+
+                    cx = Math.cos(rot) * innerRadius;
+                    cy = Math.sin(rot) * innerRadius;
+                    ctx.lineTo(cx, cy);
+                    rot += step;
+                }
+                ctx.lineTo(0, -outerRadius);
+                ctx.closePath();
+                ctx.fill();
+                
+                // 우디 보안관 배지 구슬 장식 추가
+                ctx.fillStyle = this.color;
+                for (let i = 0; i < spikes; i++) {
+                    const angle = (i * 2 * Math.PI / spikes) - Math.PI / 2;
+                    const bx = Math.cos(angle) * outerRadius;
+                    const by = Math.sin(angle) * outerRadius;
+                    ctx.beginPath();
+                    ctx.arc(bx, by, this.size * 0.1, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.type === 'planet') {
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = this.size * 0.15;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size * 0.8, this.size * 0.25, Math.PI / 6, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size * 0.45, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    const angle = i * Math.PI / 2;
+                    const x1 = Math.cos(angle) * this.size * 0.6;
+                    const y1 = Math.sin(angle) * this.size * 0.6;
+                    const x2 = Math.cos(angle + Math.PI/4) * this.size * 0.15;
+                    const y2 = Math.sin(angle + Math.PI/4) * this.size * 0.15;
+                    if (i === 0) ctx.moveTo(x1, y1);
+                    else ctx.lineTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                }
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            ctx.restore();
+        }
+    }
+
+    function spawnHearts(count, x, y) {
+        for (let i = 0; i < count; i++) {
+            const px = x !== undefined ? x + (Math.random() - 0.5) * 60 : Math.random() * canvas.width;
+            const py = y !== undefined ? y + (Math.random() - 0.5) * 20 : canvas.height + 20;
+            particles.push(new ToyStoryParticle(px, py));
+        }
+    }
+
+    function animateHearts() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.update();
+            p.draw();
+            
+            if (p.opacity <= 0 || p.y < -30) {
+                particles.splice(i, 1);
+            }
+        }
+        requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+
+    // ----------------------------------------------------
+    // Event Wiring & Setup
+    // ----------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+        // 다크 모드 및 카운트다운 타이머 초기화
+        initTheme();
+        updateCountdowns();
+        
+        // 1초마다 남은 시간 타이머 갱신
+        setInterval(updateCountdowns, 1000);
+        
+        // 다크 모드 토글 버튼 연결
+        document.getElementById('theme-toggle-btn').addEventListener('click', toggleDarkMode);
+
+
+
+        // 화면 빈 곳 클릭 시 하트 스폰 인터랙션
+        document.addEventListener('click', (e) => {
+            // 버튼이나 터치 영역이 아닌 곳을 누를 때만
+            const clickedInteractive = e.target.closest('button, a, [role="button"]');
+            if (!clickedInteractive) {
+                spawnHearts(5, e.clientX, e.clientY);
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
